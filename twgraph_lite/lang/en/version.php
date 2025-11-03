@@ -19,6 +19,7 @@
  * @copyright 2025 Travis Wilhelm <https://traviswilhelm.com.au/>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  * */
-  
- $string['pluginname'] = 'TWGraph_Lite';
  
+$plugin->component = 'report_twgraph_lite';
+$plugin->version = 2025110200;
+$plugin->release = 'v1.0';
