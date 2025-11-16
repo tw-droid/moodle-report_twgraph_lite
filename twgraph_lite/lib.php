@@ -73,6 +73,7 @@ function report_twgraph_lite_myprofile_navigation(core_user\output\myprofile\tre
  * @param array $data - an array of data_point_lite objects
  */
 function report_twgraph_lite_draw_graph(array $data) {
+    global $OUTPUT;
     $result = [];
     foreach ($data as $key => $value) {
         $group = $value->course;
@@ -97,91 +98,19 @@ function report_twgraph_lite_draw_graph(array $data) {
         }
         array_push($datapoints, $point);
     }
-?>
-<div><canvas id="myChart"></canvas></div>
-<script src="chartjs/chart.js"></script>
-<script src="chartjs/chartjs-adapter-date-fns.bundle.min.js"></script>
-<script src="chartjs/hammer.min.js"></script>
-<script src="chartjs/chartjs-plugin-zoom.js"></script>
-<script>
-const ctx = document.getElementById('myChart');
- var mc = new Chart(ctx, {
-    type: 'bubble',
-    data: {
-      datasets: [
-    <?php
-    $dotsize = get_config('reports_twgraph_lite', 'dotsize');
-    $sc = 0;
-    foreach ($datapoints as $key) { // Each subject.
-        if ($sc > 0) {
-            print(",");
-        }
-        print("\n{ label: \"".$key[0]['course']."\", data: [");
-        // Loop through each assignment.
-        $ac = 0;
-        foreach ($key as $x => $y) {
-            if ($ac > 0) {
-                print(",");
-            }
-            print("\n{assignment: \"".$y['assignment']."\", x: '".date("Y-m-d", $y['x'])."', y: ".$y['y']." , r: ".$dotsize."  }");
-            $ac++;
-        }
-        print("], }");
-        $sc++;
-    }
-    ?>
 
-  ]
-    },
-    options: {
-        plugins: {
-            zoom:   { zoom: 
-            { mode: 'x', wheel: { enabled: true }}
-            ,
-            pan: { enabled: true, mode: 'x' }
-            },
-            legend: {position: 'bottom' },
-            title: { display: true, text: 'TWGRAPH'},
-            tooltip: { enabled: true,
-            callbacks: { label: (context) => {
-                var tt = [context.dataset.label];
-                tt.push(context.raw.x);
-                if (context.raw.assignment){tt.push(context.raw.assignment);}
-                if (context.raw.weight){tt.push('Weight: '+context.raw.weight);}
-                tt.push(context.raw.y + '%');
-                return tt;
-                }
-            }
+    $graphdata = ['graphs' => []];
+    $dotsize = get_config('reports_twgraph_lite', 'dotsize');
+    foreach ($datapoints as $key) { // Each subject.
+        $tmp = [];
+        foreach ($key as $x => $y) {
+            $tmp[] = ['assignment' => $y['assignment'], 'x' => date("Y-m-d", $y['x']), 'y' => $y['y'], 'r' => $dotsize ];
+
         }
-    },
-      scales: {
-        y: {
-          beginAtZero: true,
-          suggestedMax: 100
-        }
-        ,x: {
-        type: 'time',
-          time: { displayFormats: { day: 'dd MMM yyyy', } }
-            }
-        }
+        array_push ($graphdata['graphs']  , ['label' => $key[0]['course'],
+                'type' => 'bubble',
+                'data' => $tmp,
+                ]);
     }
-}
-  
-);
-function report_twgraph_lite_toggle(){
-    mc.data.datasets.forEach(function(ds) {
-        ds.hidden = !ds.hidden;
-    });
-    mc.update();
-}
-function report_twgraph_lite_resetZoomBtn() {
-    mc.resetZoom()
-};
-</script>
-    <?php
-    print("<button id=\"toggle\" onClick=\"report_twgraph_lite_toggle();\">"
-    .get_string('graphtoggleall', 'report_twgraph_lite')."</button>");
-    print("<button onClick=\"report_twgraph_lite_resetZoomBtn();\">"
-    .get_string('graphresetzoom', 'report_twgraph_lite')."</button>");
-    print("<h5>".get_string('graphinstructions', 'report_twgraph_lite')."</h5>");
+    echo $OUTPUT->render_from_template('report_twgraph_lite/graph', $graphdata);
 }

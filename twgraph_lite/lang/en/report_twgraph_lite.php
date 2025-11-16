@@ -31,5 +31,6 @@ $string['graphtoggleall'] = 'toggle all';
 $string['no_data'] = 'No data found';
 $string['pluginname'] = 'TWGraph_Lite';
 $string['privacy:metadata'] = 'The TWGraph_Lite plugin does not store any personal data.';
+$string['twgraph_lite:definestudents'] = 'Define Students';
 $string['twgraph_lite:viewotheruserreports'] = 'View other peoples twgraph reports';
 $string['twgraph_lite:viewuserreports'] = 'View own twgraph report';

@@ -1,0 +1,64 @@
+<div class="chart-container" style="height: 400px"><canvas id="twgraph"></canvas></div>
+<script src="chartjs/chart.js"></script>
+<script src="chartjs/chartjs-adapter-date-fns.bundle.min.js"></script>
+<script src="chartjs/hammer.min.js"></script>
+<script src="chartjs/chartjs-plugin-zoom.js"></script>
+{{#js}}
+
+const data = { datasets: [
+        {{#graphs}}
+        {
+        label: '{{label}}',
+        type: '{{type}}',
+        data: [
+            {{#data}}
+              {assignment: '{{assignment}}', x: '{{x}}', y: {{y}}, r: {{r}} },
+            {{/data}}
+            ],
+           {{options}}
+           },
+        {{/graphs}} 
+            
+        ]
+    };
+let mc = new Chart (
+    document.getElementById('twgraph'),
+    {
+    data: data,
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            zoom:   { zoom: 
+            { mode: 'x', wheel: { enabled: true }}
+            ,
+            pan: { enabled: true, mode: 'x' }
+            },
+            legend: {position: 'bottom' },
+            title: { display: true, text: 'TWGRAPH'},
+            tooltip: { enabled: true,
+            callbacks: { label: (context) => {
+                var tt = [context.dataset.label];
+                tt.push(context.raw.x);
+                if (context.raw.assignment){tt.push(context.raw.assignment);}
+                if (context.raw.weight){tt.push('Weight: '+context.raw.weight);}
+                tt.push(context.raw.y + '%');
+                return tt;
+                }
+            }
+        }
+    },
+      scales: {
+        y: {
+          beginAtZero: true,
+          suggestedMax: 100
+        }
+        ,x: {
+        type: 'time',
+          time: { displayFormats: { day: 'dd MMM yyyy', } }
+            }
+        }
+    }
+    }
+);
+{{/js}}
