@@ -3,6 +3,7 @@
 <script src="chartjs/chartjs-adapter-date-fns.bundle.min.js"></script>
 <script src="chartjs/hammer.min.js"></script>
 <script src="chartjs/chartjs-plugin-zoom.js"></script>
+<script src="lib/js/lib2.js"></script>
 {{#js}}
 
 const data = { datasets: [
@@ -21,7 +22,7 @@ const data = { datasets: [
             
         ]
     };
-let mc = new Chart (
+mc = new Chart (
     document.getElementById('twgraph'),
     {
     data: data,
@@ -55,10 +56,13 @@ let mc = new Chart (
         }
         ,x: {
         type: 'time',
-          time: { displayFormats: { day: 'dd MMM yyyy', } }
+          time: { unit: 'day', displayFormats: { day: 'dd MMM yyyy', } }
             }
         }
     }
     }
 );
 {{/js}}
+<button onClick="toggle();">{{#str}}toggle, report_twgraph{{/str}}</button>
+<button onClick="resetz();">{{#str}}reset_zoom, report_twgraph{{/str}}</button>
+<h5>{{#str}}instructions, report_twgraph{{/str}}</h5>

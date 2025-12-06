@@ -25,6 +25,6 @@
 defined('MOODLE_INTERNAL') || die();
 
 $plugin->component = 'report_twgraph_lite';
-$plugin->version = 2025112200;
+$plugin->version = 2025120600;
 $plugin->requires = 2016050400;
 $plugin->maturity  = MATURITY_STABLE;
