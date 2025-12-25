@@ -3,6 +3,8 @@ Moodle report plugin to display all assignment grades for a user on a graph, ena
 
 https://moodle.org/plugins/report_twgraph_lite
 
+Full Featured version available here: https://traviswilhelm.com.au/twgraph-moodle-plugin/
+
 Published by http://traviswilhelm.com.au/
 
 Installation:
