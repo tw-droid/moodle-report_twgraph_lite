@@ -24,23 +24,22 @@
 
 require('../../config.php');
 require_login();
-require_once($CFG->libdir . '/adminlib.php');
 require_once($CFG->dirroot . '/report/twgraph_lite/lib.php');
-
 $userid = optional_param('id' , $defaultuser , PARAM_INT);
+
+if (!$userid) {
+    $userid = $USER->id; // Default to self if no user selected.
+}
+
 $pageurl = new moodle_url($CFG->wwwroot . "/report/twgraph_lite/index.php");
 $PAGE->set_url($pageurl);
-$PAGE->set_context($syscontext);
+$PAGE->set_context(context_user::instance($userid));
 $PAGE->navbar->add("TW GRAPH Lite");
 $PAGE->set_pagelayout('standard');
 $PAGE->set_heading("TW GRAPH Lite");
 $PAGE->set_title($SITE->shortname . ": TW GRAPH Lite");
 
 echo $OUTPUT->header();
-
-if (!$userid) {
-    $userid = $USER->id; // Default to self if no user selected.
-}
 
 if ($USER->id == $userid) {
         $context = context_user::instance($userid);
