@@ -15,16 +15,22 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Version file.
+ * Language file.
  *
  * @package report_twgraph_lite
  * @copyright 2025 Travis Wilhelm <https://traviswilhelm.com.au/>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  * */
 
-defined('MOODLE_INTERNAL') || die();
-
-$plugin->component = 'report_twgraph_lite';
-$plugin->version = 2026011400;
-$plugin->requires = 2016050400;
-$plugin->maturity  = MATURITY_STABLE;
+$string['dotsizedescription'] = 'Punktgröße in Pixeln';
+$string['dotsizetitle'] = 'Punktgröße';
+$string['graph_title'] = '{$a->first} {$a->last}';
+$string['graphinstructions'] = 'Mausrad zum Zoomen, Klicken und Ziehen zum horizontalen Verschieben';
+$string['graphresetzoom'] = 'Zoom zurücksetzen';
+$string['graphtoggleall'] = 'Alle umschalten';
+$string['no_data'] = 'Keine Daten gefunden';
+$string['pluginname'] = 'TWGraph_Lite';
+$string['privacy:metadata'] = 'Das Plugin TWGraph_Lite speichert keine personenbezogenen Daten.';
+$string['twgraph_lite:definestudents'] = 'Studierende definieren';
+$string['twgraph_lite:viewotheruserreports'] = 'TWGraph-Berichte anderer Nutzer/innen ansehen';
+$string['twgraph_lite:viewuserreports'] = 'Eigene TWGraph-Berichte ansehen';
