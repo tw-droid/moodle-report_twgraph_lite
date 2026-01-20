@@ -44,6 +44,7 @@ $capabilities = [
         'contextlevel' => CONTEXT_USER,
         'archetypes' => [
             'manager' => CAP_ALLOW,
+           // 'coursecreator' => CAP_ALLOW,
         ],
     ],
 ];
