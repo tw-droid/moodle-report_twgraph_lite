@@ -25,7 +25,7 @@
 require('../../config.php');
 require_login();
 require_once($CFG->dirroot . '/report/twgraph_lite/lib.php');
-$userid = optional_param('id' , $defaultuser , PARAM_INT);
+$userid = optional_param('id', $defaultuser, PARAM_INT);
 
 if (!$userid) {
     $userid = $USER->id; // Default to self if no user selected.
@@ -49,13 +49,13 @@ if ($USER->id == $userid) {
         require_capability("report/twgraph_lite:viewotheruserreports", $context);
 }
 
-$user = core_user::get_user($userid , '*');
-print("<h2>".get_string('graph_title', 'report_twgraph_lite', ['first' => $user->firstname, 'last' => $user->lastname])."</h2>");
-if ($courses = enrol_get_users_courses($userid , false , 'id, shortname, showgrades')) {
+$user = core_user::get_user($userid, '*');
+print("<h2>" . get_string('graph_title', 'report_twgraph_lite', ['first' => $user->firstname, 'last' => $user->lastname]) . "</h2>");
+if ($courses = enrol_get_users_courses($userid, false, 'id, shortname, showgrades')) {
     $datapoints = [];
     foreach ($courses as $course) {
         $coursecontext = context_course::instance($course->id);
-        $courseshortname = format_string($course->shortname , true , ['context' => $coursecontext]);
+        $courseshortname = format_string($course->shortname, true, ['context' => $coursecontext]);
         $courseitem = grade_item::fetch_all(['courseid' => $course->id]);
         foreach ($courseitem as $ci) {
             $coursegrade = new grade_grade(['itemid' => $ci->id, 'userid' => $userid]);

@@ -25,10 +25,9 @@
 defined('MOODLE_INTERNAL') || die;
 
 $settings->add(new admin_setting_configtext(
-    'reports_twgraph_lite/dotsize',
-    get_string('dotsizetitle', 'report_twgraph_lite'),
-    get_string('dotsizedescription', 'report_twgraph_lite'),
-    10,
-    PARAM_INT
-    )
+'reports_twgraph_lite/dotsize',
+get_string('dotsizetitle', 'report_twgraph_lite'),
+get_string('dotsizedescription', 'report_twgraph_lite'),
+10,
+PARAM_INT)
 );

@@ -62,8 +62,7 @@ function report_twgraph_lite_myprofile_navigation(core_user\output\myprofile\tre
         $course = get_fast_modinfo(SITEID)->get_course();
     }
         $url = new moodle_url('/report/twgraph_lite/index.php', ['id' => $user->id]);
-        $node = new core_user\output\myprofile\node
-        ('reports', 'twgraph_lite', get_string('pluginname', 'report_twgraph_lite'), null, $url);
+        $node = new core_user\output\myprofile\node('reports', 'twgraph_lite', get_string('pluginname', 'report_twgraph_lite'), null, $url);
         $tree->add_node($node);
 }
 
@@ -105,9 +104,8 @@ function report_twgraph_lite_draw_graph(array $data) {
         $tmp = [];
         foreach ($key as $x => $y) {
             $tmp[] = ['assignment' => $y['assignment'], 'x' => date("Y-m-d", $y['x']), 'y' => $y['y'], 'r' => $dotsize ];
-
         }
-        array_push ($graphdata['graphs']  , ['label' => $key[0]['course'],
+    array_push ($graphdata['graphs'], ['label' => $key[0]['course'],
                 'type' => 'bubble',
                 'data' => $tmp,
                 ]);
